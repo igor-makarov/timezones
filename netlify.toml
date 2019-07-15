@@ -1,0 +1,3 @@
+[build]
+  command = "bundle exec generate.rb"
+  publish = "_site"
