@@ -24,3 +24,7 @@ CSV.open('_site/cities_time_zones.csv', 'w') do |output|
     output << [name, country, time_zone]
   end
 end
+
+File.open('_site/_redirects', 'w') do |f| 
+  f.puts '/   https://github.com/igor-makarov/timezones 301'
+end
