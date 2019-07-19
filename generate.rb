@@ -49,3 +49,8 @@ end
 File.open('_site/_redirects', 'w') do |f| 
   f.puts '/   https://github.com/igor-makarov/timezones 301'
 end
+
+File.open('_site/_headers', 'w') do |f| 
+  f.puts '/cities_time_zones.json'
+  f.puts '  Content-type: application/json; charset=utf-8'
+end
