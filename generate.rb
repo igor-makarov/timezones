@@ -6,13 +6,18 @@ require 'fileutils'
 require 'csv'
 require 'json'
 
+def download_and_unzip(url)
+  Dir.chdir('_site') do
+    system("curl -o output.zip \"#{url}\"")
+    system('unzip output.zip')
+    FileUtils.rm_rf('output.zip')
+  end
+end
+
 FileUtils.rm_rf('_site')
 FileUtils.mkdir_p('_site')
 
-Dir.chdir('_site') do
-  system('curl -o cities.zip https://download.geonames.org/export/dump/cities15000.zip')
-  system('unzip cities.zip')
-end
+download_and_unzip 'https://download.geonames.org/export/dump/cities15000.zip'
 
 tf = TimezoneFinder.create
 
