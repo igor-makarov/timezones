@@ -24,7 +24,7 @@ tf = TimezoneFinder.create
 csv = CSV.open("_site/cities15000.txt", "r", { :col_sep => "\t" })
 
 cities = csv.map do |city|
-  _, name, _, keywords, lat, lon, _, _, countryCode = city
+  _, name, _, keywords, lat, lon, _, _, countryCode, _, admin_region = city
   time_zone = city[-2]
   
   # no need to lookup, Geonames data is super!
@@ -35,12 +35,14 @@ cities = csv.map do |city|
   # the keyowords are comma separated
   keywords = CSV.parse(keywords || '')
   
-  {
+  city_hash = {
     name: name,
     countryCode: countryCode,
     keywords: keywords,
     time_zone: time_zone,
   }
+  city_hash[:admin_region] = admin_region if countryCode == "US"  
+  city_hash
 end
 
 File.open('_site/cities_time_zones.json','w') do |output|
@@ -50,7 +52,7 @@ end
 
 CSV.open('_site/cities_time_zones.csv', 'w') do |output|
   cities.each do |city|
-    output << [city[:name], city[:countryCode], city[:keywords].join(','), city[:time_zone]]
+    output << [city[:name], city[:countryCode], city[:admin_region], city[:keywords].join(','), city[:time_zone]]
   end
 end
 
