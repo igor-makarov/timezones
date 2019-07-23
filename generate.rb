@@ -39,9 +39,9 @@ cities = csv.map do |city|
     name: name,
     countryCode: countryCode,
     keywords: keywords,
-    time_zone: time_zone,
+    timeZone: time_zone,
   }
-  city_hash[:admin_region] = admin_region if countryCode == "US"  
+  city_hash[:adminRegion] = admin_region if countryCode == "US"  
   city_hash
 end
 
@@ -52,7 +52,7 @@ end
 
 CSV.open('_site/cities_time_zones.csv', 'w') do |output|
   cities.each do |city|
-    output << [city[:name], city[:countryCode], city[:admin_region], city[:keywords].join(','), city[:time_zone]]
+    output << [city[:name], city[:countryCode], city[:adminRegion], city[:keywords].join(','), city[:timeZone]]
   end
 end
 
